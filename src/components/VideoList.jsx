@@ -7,7 +7,7 @@ var VideoList = (props) => {
   for (let i = 0; i < props.videos.length; i++) {
     var video = props.videos[i];
     rows.push( 
-      <VideoListEntry video={video}/>
+      <VideoListEntry click={props.click} video={video}/>
     );
   }
 
