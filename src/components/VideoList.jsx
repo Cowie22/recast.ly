@@ -8,14 +8,14 @@ var VideoList = (props) => {
     var video = props.videos[i];
     rows.push( 
       <VideoListEntry video={video}/>
-    )
+    );
   }
 
   return (
     <div className="video-list"> 
       {rows}
     </div>
-  )
+  );
 };
 
 // PropTypes tell other developers what `props` a component expects
