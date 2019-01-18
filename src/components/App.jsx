@@ -2,6 +2,7 @@ import exampleVideoData from '../data/exampleVideoData.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
+import Search from './Search.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -9,11 +10,20 @@ class App extends React.Component {
     
     this.state = {
       currentVideo: exampleVideoData[0],
-      currentList: exampleVideoData
+      currentList: exampleVideoData,
     };
+    this.onSearch = this.onSearch.bind(this);
   }
   onVideoClick(video) {
     this.setState({currentVideo: video});  
+  }
+  onSearch(query) {
+    var options = {
+      q: query,
+      max: 5,
+      key: YOUTUBE_API_KEY 
+    };
+    this.props.searchYouTube(options, (video) => this.setState({currentVideo: video[0], currentList: video}));
   }
   componentDidMount() {
     var options = {
@@ -23,13 +33,13 @@ class App extends React.Component {
     };
     this.props.searchYouTube(options, (data) => this.setState({currentVideo: data[0], currentList: data}));
   }
- 
+  
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <Search onSearch={this.onSearch}/>
           </div>
         </nav>
         <div className="row">
